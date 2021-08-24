@@ -1,12 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 import { RocketService } from './rocket.service';
 
 @Controller('rocket')
 export class RocketController {
     constructor(private rocketService: RocketService) { }
 
-    @Get('next-launch')
-    getNextLaunchRemaninigTime() {
+    @MessagePattern('get-next-launch-remaining-time')
+    getNextLaunchRemainingTime(): Observable<string> {
         return this.rocketService.getNextLaunchRemaningTime();
     }
 }
